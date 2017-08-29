@@ -3,10 +3,30 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 	
+	<!-- 
+		配置bean
+		class ： bean 的全类名，通过反射的方式在IOC容器中创建Bean，所以要求bean必须有无参的构造方法
+		id ： 标识容器中的bean，id唯一
+	 -->
 	<bean id="helloWorld" class="com.atguigu.beans.HelloWorld">
 		<!-- 相当于bean中的set 方法 -->
 		<!-- value 为bean的值 -->
 		<property name="name" value="Spring"></property>
 	</bean>	
 
+	
+	<!-- 通过构造方法来排至bean的属性值 -->
+	<!-- 可以通过index 来标识参数的位置 -->
+	<bean id="car" class="com.atguigu.beans.Car">
+		<constructor-arg value="Audi" index="0"> </constructor-arg>
+		<constructor-arg value="ShangHai" index="1"></constructor-arg>
+		<constructor-arg value="30000" index="2"></constructor-arg>
+	</bean>
+
+	<!-- 可以通过参数类型来标识不同的数据类型，以区别不同的构造方法 -->
+	<bean id="cart" class="com.atguigu.beans.Car">
+		<constructor-arg value="Baoma" type="java.lang.String"></constructor-arg>
+		<constructor-arg value="Shanghai" type="java.lang.String"></constructor-arg>
+		<constructor-arg value="240" type="int"></constructor-arg>
+	</bean>
 </beans>
