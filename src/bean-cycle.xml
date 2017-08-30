@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="car" class="com.atguigu.beans.cycle.Car" init-method="init" destroy-method="destory">
+		<property name="name" value="audo"></property>
+	</bean>
+
+	
+	<!-- 
+		实现 eanPostProcessor 接口， 并具体提供
+		Object postProcessBeforeInitialization(Object bean, String beanName)：init-method 之前被调用
+		Object postProcessAfterInitialization(Object bean, String beanName)：init-method 之后被调用
+		
+		bean : bean 实例本省
+		beanName : IOC 容器中配置的bean的名字
+		返回值 : 是实际上返回给用户的那个bean， 注意：可以在以上两个方法中修改返回的bean， 甚至是一个新的bean
+	 -->
+	<!-- 配置bean的后处理器 -->
+	<bean class="com.atguigu.beans.cycle.MyBeanProcessor"></bean>
+</beans>
