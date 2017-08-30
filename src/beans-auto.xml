@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="address" class="com.atguigu.beans.autoWrite.Address"
+		p:city="zhengzhou" p:stress="gaoxinqu"></bean>
+
+	<bean id="car" class="com.atguigu.beans.autoWrite.Car" p:brand="aodi"
+		p:price="20000"></bean>
+
+	<!-- 使用手动的方式进行装配 -->
+	<!-- <bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" p:car-ref="car" p:address-ref="address"></bean> -->
+	
+	<!-- 
+		使用autowire 属性指定自动装配方式，
+		byName : 根据bean 的名字和当前setter 风格的属性名进行自动装配，若有匹配的，则进行自动装配，若没有匹配的，则不装配
+		byType : 根据bean 的类型和当前bean 的属性的类型进行自动装配。若IOC容器中有1个以上的类型匹配的bean，则抛异常
+		
+		在一个bean中  byName和byType 不可以同时使用
+	 -->
+	<!-- 通过 byName 进行自动装配 -->
+	<!-- <bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" autowire="byName"></bean> -->
+	<!-- 通过byType 进行自动装配 -->
+	<bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" autowire="byType"></bean>
+	
+	
+</beans>
