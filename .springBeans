@@ -11,6 +11,7 @@
 		<config>src/beans-auto.xml</config>
 		<config>src/beans-relation.xml</config>
 		<config>src/beans-scope.xml</config>
+		<config>src/beans-datasource.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
