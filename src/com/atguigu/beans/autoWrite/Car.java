@@ -5,6 +5,12 @@ public class Car {
 	private String brand;
 	private double price;
 
+	
+	
+	public Car() {
+		System.out.println("≥ı ºªØ÷–°≠°≠");
+	}
+
 	public String getBrand() {
 		return brand;
 	}
