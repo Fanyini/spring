@@ -32,5 +32,11 @@ public class Main {
 		
 		car = (Car) applicationContext.getBean("cart");
 		System.out.println(car.toString());
+		
+		
+		
+		Person person = (Person) applicationContext.getBean("person");
+		System.out.println(person);
+		
 	}
 }

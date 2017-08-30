@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 	
 	<!-- 
 		配置bean
@@ -19,7 +22,11 @@
 	<!-- 可以通过index 来标识参数的位置 -->
 	<bean id="car" class="com.atguigu.beans.Car">
 		<constructor-arg value="Audi" index="0"> </constructor-arg>
-		<constructor-arg value="ShangHai" index="1"></constructor-arg>
+		<!-- 如果字面值包含特殊字符可以使用<![CDATE[]]>包裹起来 -->
+		<!-- 属性值也可以使用 value 直接进行配置（子节点） -->
+		<constructor-arg index="1">
+			<value><![CDATA[<ShangHai^>]]></value>
+		</constructor-arg>
 		<constructor-arg value="30000" index="2"></constructor-arg>
 	</bean>
 
@@ -29,4 +36,90 @@
 		<constructor-arg value="Shanghai" type="java.lang.String"></constructor-arg>
 		<constructor-arg value="240" type="int"></constructor-arg>
 	</bean>
+	
+	
+	
+	<bean id="person" class="com.atguigu.beans.Person">
+		<property name="name" value="Tom"></property>
+		<property name="age" value="24"></property>
+		<!-- 通过ref来建立bean之间的引用关系 -->
+		<property name="car" ref="car"></property>
+		<!-- 通过构造方法来 -->
+		<!-- <constructor-arg value="Zhang"></constructor-arg>
+		<constructor-arg value="24"></constructor-arg>
+		<constructor-arg ref="car"></constructor-arg> -->
+		<!-- 测试null -->
+		<!-- <constructor-arg><null/></constructor-arg>		 -->
+		
+		<!-- 通过内部bean ， 只能在内部使用， 不能被外部的引用 -->
+		<!-- <property name="car">
+			<bean class="com.atguigu.beans.Car">
+				<constructor-arg value="Fute" type="java.lang.String"></constructor-arg>
+				<constructor-arg value="Chang'an" type="java.lang.String"></constructor-arg>
+				<constructor-arg value="2400" type="int"></constructor-arg>
+			</bean>
+		</property> -->
+		<!-- 级联属性赋值，注意：属性需要先初始化后才可以为级联属性赋值，否则会有异常 -->
+		<property name="car.price" value="2600"></property>
+	</bean>
+	
+	<!-- 为list集合属性赋值 -->
+	<bean id="personCollection" class="com.atguigu.beans.collection.Person">
+		<property name="name" value="wang"></property>
+		<property name="age" value="25000"></property>
+		<property name="car">
+			<list>
+				<ref bean="cart" />
+				<ref bean="car" />
+				<!-- 此处也可已使用内部bean来为list赋值 -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 配置单例的集合bean，以供多个bean进行引用，但是需要导入util 命名空间 -->
+	<util:list id="cars">
+		<ref bean="cart" />
+		<ref bean="car" />
+	</util:list>
+	
+	<bean id="personaa" class="com.atguigu.beans.collection.Person">
+		<property name="name" value="aaaaaa"></property>
+		<property name="age" value="25000"></property>
+		<property name="car" ref="cars"></property>
+	</bean>
+		
+	<!-- 为Map集合进行赋值 -->
+	<bean id="newPerson" class="com.atguigu.beans.collection.NewPerson">
+		<property name="name" value="Test"></property>
+		<property name="age" value="123456"></property>
+		<property name="carMap">
+			<map>
+				<entry key="aaa">
+					<ref bean="car"/>
+				</entry>
+				<entry key="bbb">
+					<ref bean="cart"/>
+				</entry>
+			</map>
+		</property>
+	</bean>
+	
+	
+	<!-- 配置Properties -->
+	<bean id="dataSource" class="com.atguigu.beans.collection.DataSource">
+		<property name="properties">
+			<!-- 使用props 和 prop 子节点来为properties属性赋值-->
+			<props>
+				<prop key="user">root</prop>
+				<prop key="password">root</prop>
+				<prop key="jdbc">jdbc:mysql://test</prop>
+				<prop key="dirverClass">com.mysql.jdbc.Driver</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
+	<!-- 使用 P 命名空间为bean 的属性赋值，需要先导入 p 命名空间，相对于传统的配置方式来说更加的简洁 -->
+	<bean id="personPNameSpace" class="com.atguigu.beans.collection.Person" p:name="zuoweiceshi" p:age="25" p:car-ref="cars"></bean>
+	
 </beans>

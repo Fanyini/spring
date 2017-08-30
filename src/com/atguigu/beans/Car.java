@@ -20,6 +20,10 @@ public class Car {
 		this.maxSpeed = maxSpeed;
 	}
 
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
 	public String toString() {
 		return "Car [brand=" + brand + ", corp=" + corp + ", price=" + price + ", maxSpeed=" + maxSpeed + "]";
 	}
