@@ -11,6 +11,10 @@ public class Main {
 		
 		Car car = (Car) context.getBean("carOne");
 		System.out.println(car);
+		
+		
+		car = (Car) context.getBean("carTwo");
+		System.out.println(car);
 	}
 
 }
