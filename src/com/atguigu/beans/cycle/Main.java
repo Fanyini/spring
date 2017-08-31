@@ -8,9 +8,9 @@ public class Main {
 		ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean-cycle.xml");
 		Car car = (Car) applicationContext.getBean("car");
 		System.out.println(car);
-		
+
 		// ¹Ø±Õioc ÈÝÆ÷
 		applicationContext.close();
-		
+
 	}
 }

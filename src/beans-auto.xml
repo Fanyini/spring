@@ -3,11 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean id="address" class="com.atguigu.beans.autoWrite.Address"
-		p:city="zhengzhou" p:stress="gaoxinqu"></bean>
+	<bean id="address" class="com.atguigu.beans.autoWrite.Address" p:city="zhengzhou" p:stress="gaoxinqu"></bean>
 
-	<bean id="car" class="com.atguigu.beans.autoWrite.Car" p:brand="aodi"
-		p:price="20000"></bean>
+	<bean id="car" class="com.atguigu.beans.autoWrite.Car" p:brand="aodi" p:price="20000"></bean>
 
 	<!-- 使用手动的方式进行装配 -->
 	<!-- <bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" p:car-ref="car" p:address-ref="address"></bean> -->
@@ -23,6 +21,5 @@
 	<!-- <bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" autowire="byName"></bean> -->
 	<!-- 通过byType 进行自动装配 -->
 	<bean id="person" class="com.atguigu.beans.autoWrite.Person" p:name="zhangsan" autowire="byType"></bean>
-	
 	
 </beans>

@@ -1,6 +1,7 @@
 package com.atguigu.beans.factoryBean;
 
 import org.springframework.beans.factory.FactoryBean;
+
 /**
  * 自定义的 FactoryBean 需要实现FactoryBean 接口
  */
