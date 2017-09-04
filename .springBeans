@@ -18,6 +18,7 @@
 		<config>src/beans-factoryBean.xml</config>
 		<config>src/beans-annotation.xml</config>
 		<config>src/beans-generic-di.xml</config>
+		<config>src/aop-applicationContext.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>

@@ -1,0 +1,33 @@
+package com.atguigu.spring.aop.impl;
+
+import org.springframework.stereotype.Component;
+
+// 将bean 放入到IOC容器中
+@Component
+public class ArithmeticCalculatorImpl implements ArithmeticCalculator {
+
+	@Override
+	public int add(int a, int b) {
+		int result = a + b;
+		return result;
+	}
+
+	@Override
+	public int sub(int a, int b) {
+		int result = a - b;
+		return result;
+	}
+
+	@Override
+	public int mul(int a, int b) {
+		int result = a * b;
+		return result;
+	}
+
+	@Override
+	public int div(int a, int b) {
+		int result = a / b;
+		return result;
+	}
+
+}
