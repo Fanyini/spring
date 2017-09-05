@@ -11,6 +11,7 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -20,9 +21,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class LoggingAspect {
 
+	/**
+	 * 定义一个方法，用户声明切入点表达式，一般的，该方法中不再需要添入其他的代码。
+	 * 使用@Pointcut来声明切入点表达式
+	 * 后面的其他通知直接使用方法名来引用当前的切入点表达式
+	 */
+	@Pointcut("execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(..))")
+	public void declareJointPointException(){}
 	// 前置通知
 	// 声明一个前置通知，在目标方法之前执行
-	@Before("execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))")
+	@Before("declareJointPointException()")
 	// JoinPoint : 连接点
 	public void beforeMethod(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().getName();// 返回调用的方法名
@@ -32,7 +40,7 @@ public class LoggingAspect {
 
 	// 后置通知：在目标方法执行后（无论是否发生异常），执行通知
 	// 后置通知中还不能访问目标方法执行的结果
-	@After("execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))")
+	@After("declareJointPointException()")
 	public void afterMethod(JoinPoint joinPoint) {
 		String methodName = joinPoint.getSignature().getName();// 返回调用的方法名
 		System.out.println("The method " + methodName + " ends");
@@ -41,7 +49,7 @@ public class LoggingAspect {
 	/**
 	 * 在方法正常结束后执行的代码 返回通知是可以访问到方法的返回值
 	 */
-	@AfterReturning(value = "execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))", returning = "result")
+	@AfterReturning(value = "declareJointPointException()", returning = "result")
 	public void afterReturning(JoinPoint joinpoint, Object result) {
 		String methodName = joinpoint.getSignature().getName(); // 返回调用的方法名
 		System.out.println("The method " + methodName + " afterReturning with " + result);
@@ -50,7 +58,7 @@ public class LoggingAspect {
 	/**
 	 * 异常通知： 在目标出现异常时会执行的代码。 可以访问到异常对象，且可以指定在出现异常时再执行通知代码
 	 */
-	@AfterThrowing(value = "execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))", throwing = "e")
+	@AfterThrowing(value = "declareJointPointException()", throwing = "e")
 	public void afterThrowing(JoinPoint joinPoint, Exception e) {
 		String methodName = joinPoint.getSignature().getName();
 		System.out.println("The method " + methodName + "occurs exception " + e);
@@ -61,7 +69,7 @@ public class LoggingAspect {
 	 * 环绕通知类似于动态代理的全过程：ProceedingJoinPoint 可以决定是否执行目标方法
 	 * 且环绕通知必须要有返回值，返回值即为目标方法的返回值
 	 */
-	@Around("execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(int, int))")
+	@Around("declareJointPointException()")
 	public Object aroundMethod(ProceedingJoinPoint pjd) {
 		Object result = null;
 		String methodName = pjd.getSignature().getName();

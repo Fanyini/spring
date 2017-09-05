@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class VlidationAspect {
-	@Before("execution(public int com.atguigu.spring.aop.impl.ArithmeticCalculatorImpl.*(..))")
+	@Before("com.atguigu.spring.aop.impl.LoggingAspect.declareJointPointException()")
 	public void vlidationAspect(JoinPoint joinpoint){
 		System.out.println(" --> vlidationAspect : " + Arrays.asList(joinpoint.getArgs()));
 	}
