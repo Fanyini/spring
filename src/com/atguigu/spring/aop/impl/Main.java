@@ -13,6 +13,8 @@ public class Main {
 		// 从IOC容器中获取bean实例
 		ArithmeticCalculator arithmeticCalculator = context.getBean(ArithmeticCalculator.class);
 		
+		System.out.println(arithmeticCalculator.getClass().getName());
+		
 		// 使用bean
 		int result = arithmeticCalculator.add(2, 4);
 		System.out.println("result : " + result);
