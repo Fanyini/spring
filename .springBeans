@@ -20,6 +20,7 @@
 		<config>src/beans-generic-di.xml</config>
 		<config>src/aop-applicationContext.xml</config>
 		<config>src/aop-applicationContext_xml.xml</config>
+		<config>src/jdbc_applicationContext.xml</config>
 	</configs>
 	<autoconfigs>
 	</autoconfigs>
