@@ -2,7 +2,9 @@ package com.atguigu.jdbc;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -12,6 +14,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 public class JDBCTest {
 
@@ -19,11 +24,13 @@ public class JDBCTest {
 	private JdbcTemplate jdbcTemplate;
 	private DelInfoDAO delInfoDAO;
 	private DeptDAO deptDAO;
+	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 	{
 		context = new ClassPathXmlApplicationContext("jdbc_applicationContext.xml");
 		jdbcTemplate = (JdbcTemplate) context.getBean("jdbcTemplate");
 		delInfoDAO = context.getBean(DelInfoDAO.class);
 		deptDAO = context.getBean(DeptDAO.class);
+		namedParameterJdbcTemplate = context.getBean(NamedParameterJdbcTemplate.class);
 	}
 
 	/**
@@ -111,4 +118,39 @@ public class JDBCTest {
 	public void testDept(){
 		System.out.println(deptDAO.get(1));
 	}
+	
+	/**
+	 * 使用具名参数,可以为参数起名字
+	 * 1、好处：若为多个参数，则不用再去对应位置，直接对应参数名，便于维护
+	 * 2、缺点：较为麻烦
+	 */
+	@Test
+	public void testNamedParameterJdbcTemplate(){
+		String sql = "INSERT INTO delinfo (NAME, phone, email, depeId) values(:name,:phone,:email,:deptId)";
+		Map<String, Object> map = new HashMap<>();
+		map.put("name", "GG");
+		map.put("phone", "gg");
+		map.put("email", "gg@qq.com");
+		map.put("deptId", 1);
+		namedParameterJdbcTemplate.update(sql, map);
+	}
+	/**
+	 * 使用具名参数时，可已使用update(String sql, SqlParameterSource paramSource)方法进行更新操作
+	 * 1、SQL语句中的参数名和类的属性名一致
+	 * 2、使用SqlParameterSource 的 BeanPropertySqlParameterSource实现类作为参数
+	 */
+	@Test
+	public void testNameParameterJdbcTemplate2(){
+		String sql = "INSERT INTO delinfo (NAME, phone, email, depeId) values(:name,:phone,:email,:depeId)";
+		
+		DelInfo delInfo = new DelInfo();
+		delInfo.setName("zxc");
+		delInfo.setEmail("zxc@qq.com");
+		delInfo.setPhone("aaaaa");
+		delInfo.setId(5);
+		
+		SqlParameterSource parameterSource = new BeanPropertySqlParameterSource(delInfo);
+		namedParameterJdbcTemplate.update(sql, parameterSource);
+	}
+	
 }

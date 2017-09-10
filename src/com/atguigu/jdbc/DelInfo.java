@@ -5,7 +5,7 @@ public class DelInfo {
 	private String name;
 	private String phone;
 	private String email;
-	private Dept dept;
+	private Integer depeId;
 
 	public Integer getId() {
 		return id;
@@ -39,17 +39,17 @@ public class DelInfo {
 		this.email = email;
 	}
 
-	public Dept getDept() {
-		return dept;
+	public Integer getDepeId() {
+		return depeId;
 	}
 
-	public void setDept(Dept dept) {
-		this.dept = dept;
+	public void setDepeId(Integer depeId) {
+		this.depeId = depeId;
 	}
 
 	@Override
 	public String toString() {
-		return "DelInfo [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", dept=" + dept
+		return "DelInfo [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", depeId=" + depeId
 				+ "]";
 	}
 
