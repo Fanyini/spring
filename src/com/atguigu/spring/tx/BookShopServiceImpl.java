@@ -2,12 +2,16 @@ package com.atguigu.spring.tx;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service("bookShopService")
 public class BookShopServiceImpl implements BookShopService {
 
 	@Autowired
 	private BookShopDAO bookShopDAO;
+	
+	// 添加事务注解
+	@Transactional
 	@Override
 	public void purchase(String username, String isbm) {
 
